@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 function App() {
   const [ song, setSong ] = useState('');
@@ -37,30 +41,31 @@ function App() {
   }
 
   return <>
-    <h2>Tangerine Music</h2>
-    <form onSubmit={ handleSearch }>
-      <input type='text' value={ song } onChange={ event => setSong(event.target.value) }></input>
-      <button type='submit'>Search</button>
-    </form>
-
+    <header>
+      <h2>Tangerine Music</h2>
+      <form onSubmit={ handleSearch }>
+        <input type='text' value={ song } onChange={ event => setSong(event.target.value) }></input>
+        <button type='submit'>Search</button>
+      </form>
+    </header>
+    <main>
     { songs.map((song, index) => (
       <>
-        {/* <div key={index}>
-          <img src={ song.data.albumOfTrack.coverArt.sources[0].url } alt="" />
-          <h2>{ song.data.name }</h2>
-          <a href={ song.data.uri }><button>Play song</button></a>
-        </div> */}
-
-        <div class="card">
-          <img src={ song.data.albumOfTrack.coverArt.sources[0].url } alt="" />
-          <div class="card-body">
-            <h2>{ song.data.name }</h2>
-            <a href={ song.data.uri }><button>Play song</button></a>
-          </div>
-        </div>
+          <Card style={{ width: '18rem' }}>
+            <Card.Img variant="top" src={ song.data.albumOfTrack.coverArt.sources[0].url } />
+            <Card.Body>
+              <Card.Title>{ song.data.name }</Card.Title>
+              <Card.Text>{ song.data.artists.items[0].profile.name }</Card.Text>
+              <a href={ song.data.uri }><Button variant="primary">Play Song</Button></a>
+            </Card.Body>
+          </Card>
       </>
     ))}
+    </main>
   </>
 }
 
 export default App;
+
+
+
